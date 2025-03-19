@@ -1,7 +1,7 @@
 # Calculator
 
 Live version: https://kasperrf.github.io/Calculator
-Currently not functional as it is currently a WIP.
+Currently semi-functional, several bugs still not fixed.
 
 Making a basic calculator with UI
 
