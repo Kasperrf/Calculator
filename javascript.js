@@ -22,8 +22,11 @@ function divide(input1, input2){
 let nr1 = 0
 let nr2 = 0
 let operator = 0
-let operatorJustPressed = false
 let sum = 0
+let stage = "start"
+let firstNrFilled = false
+// let operatorJustPressed = false
+// let sumJustPressed = false
 
 function operate(nr1, nr2, operator){
     if(operator == "+"){
@@ -39,12 +42,10 @@ function operate(nr1, nr2, operator){
 
 // Number button press function
 function nrPress(nr){
-    if (display.textContent == 0) {
+    if(firstNrFilled == false){
         display.textContent = nr
-    }else if(operatorJustPressed == true){
-        operatorJustPressed = false
-        display.textContent = nr
-    }else{
+        firstNrFilled = true
+    }else if(firstNrFilled == true){
         display.textContent += nr
     }
 }
@@ -98,16 +99,35 @@ btn0.addEventListener("click", function() {
 let clearBtn = document.querySelector("#btnClear")
 clearBtn.addEventListener("click", () => {
     display.textContent = 0
-    nr1, nr2, operator = 0
-    operatorJustPressed = false
+    nr1 = 0
+    nr2 = 0
+    operator = 0
+    firstNrFilled = false
+    stage = "start"
 })
 
 // Function for +, -, /, * operator buttons
 function operatePress(input){
-    if(nr1 > 0 && nr2 > 0)
-    nr1 = parseFloat(display.textContent, 10)
-    operator = input
-    operatorJustPressed = true
+    if (firstNrFilled == "nr1Filled"){
+        operator = input
+        nr1 = display.textContent
+        stage = "nr1OperatorFilled"
+    }                
+    // } else if(stage == "nr1Filled")
+    // if(nr1 == 0){
+    //     nr1 = parseFloat(display.textContent, 10)
+    //     operator = input
+    //     operatorJustPressed = true
+    // }else if(nr1 > 0){
+    //     nr2 = parseFloat(display.textContent, 10)
+    //     sum = operate(nr1, nr2, operator)
+    //     operatorJustPressed = true
+    //     display.textContent = sum
+    //     nr1 = sum
+    //     nr2 = 0
+    //     operator = input
+    //     sumJustPressed = false
+    // }
 }
 
 // Operator buttons
@@ -130,15 +150,17 @@ btnMultiply.addEventListener("click", function() {
 
 let btnSum = document.querySelector("#btnSum")
 btnSum.addEventListener("click", () => {
-    nr2 = parseFloat(display.textContent)
-    sum = operate(nr1, nr2, operator)
-    operatorJustPressed = true
+    // if(sumJustPressed == false){
+    //     nr2 = parseFloat(display.textContent)
+    //     sum = operate(nr1, nr2, operator)
 
-    if(typeof sum == "undefined"){
-        display.textContent = 0
-    }else{
-        display.textContent = sum 
-    }
+    //     if(typeof sum == "undefined"){
+    //         display.textContent = 0
+    //     }else{
+    //         display.textContent = sum
+    //     }
+
+    // }
 })
 
 let btnComma = document.querySelector("#btnComma")

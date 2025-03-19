@@ -1,0 +1,12 @@
+---------------------------------
+|Pseudocode for operator buttons|
+---------------------------------
+round1: enter number 1, for each number pressed add it to the display, then press operator which stores operator choice to variable called operator, also store number on display to variable nr1. Update operatorJustPressed to true.
+
+round2: if operatorJustPressed = true, erase display and enter number 2, for each number pressed add it to the display. Two choices: 
+choice1(sum): store display value to variable nr2, erase this value, perform sum function with nr1, nr2 and operator and store this to sum, if sum is number type display this in display field. If not, display 0. 
+choice2(operator): Retrieve display value and store it to nr2, then do sum function with nr1, nr2, and operator, then display this sum value. Update nr1 to be new sum value and nr2 to be empty. Update operator to be the last operator. 
+Update operatorJustPressed to true.
+
+
+
