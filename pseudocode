@@ -1,12 +1,20 @@
 ---------------------------------
-|Pseudocode for operator buttons|
+|   Pseudocode for calculator   |
 ---------------------------------
-round1: enter number 1, for each number pressed add it to the display, then press operator which stores operator choice to variable called operator, also store number on display to variable nr1. Update operatorJustPressed to true.
+Stage: start. Accept input number. if first number is not filled remove current display and display input, if 
+first number is filled add input to the current display. After choosing a number the user can either choose a 
+operator or press sum. if sum is pressed do nothing, if operator is pressed store input nr in nr1, store operator 
+input in operator variable, set firstNrFilled to false and set stage to nr1Operator 
 
-round2: if operatorJustPressed = true, erase display and enter number 2, for each number pressed add it to the display. Two choices: 
-choice1(sum): store display value to variable nr2, erase this value, perform sum function with nr1, nr2 and operator and store this to sum, if sum is number type display this in display field. If not, display 0. 
-choice2(operator): Retrieve display value and store it to nr2, then do sum function with nr1, nr2, and operator, then display this sum value. Update nr1 to be new sum value and nr2 to be empty. Update operator to be the last operator. 
-Update operatorJustPressed to true.
+Stage: nr1Operator. At this stage we have nr1 and operator. From here, the user can input a new number, press operator or 
+press sum. 
+
+If sum is pressed, store display value to nr2, run and store sum function with nr1, nr2 and operator to sum 
+variable. Set stage to sum and firstNrFilled to false. Pressing sum again should do nothing. 
+
+If operator is pressed, store display value to nr2, run and store sum function. Display sum value, update operator 
+with the new operator, set firstNrFilled to false and set stage to nr1nr2Operator. 
 
 
-
+stage: sum. Here we have nr1, nr2 and operator. The user can press a new operator or enter a new value then press 
+new operator. If the user presses new operator, store current display to nr1. 

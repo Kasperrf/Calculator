@@ -19,14 +19,12 @@ function divide(input1, input2){
 }
 
 // Declaring empty variables
-let nr1 = 0
-let nr2 = 0
-let operator = 0
-let sum = 0
+let nr1
+let nr2
+let operator
+let sum
 let stage = "start"
 let firstNrFilled = false
-// let operatorJustPressed = false
-// let sumJustPressed = false
 
 function operate(nr1, nr2, operator){
     if(operator == "+"){
@@ -99,35 +97,31 @@ btn0.addEventListener("click", function() {
 let clearBtn = document.querySelector("#btnClear")
 clearBtn.addEventListener("click", () => {
     display.textContent = 0
-    nr1 = 0
-    nr2 = 0
-    operator = 0
+    nr1 = undefined
+    nr2 = undefined
+    operator = undefined
+    sum = undefined
     firstNrFilled = false
     stage = "start"
 })
 
 // Function for +, -, /, * operator buttons
 function operatePress(input){
-    if (firstNrFilled == "nr1Filled"){
+    if (stage == "start"){
         operator = input
-        nr1 = display.textContent
-        stage = "nr1OperatorFilled"
-    }                
-    // } else if(stage == "nr1Filled")
-    // if(nr1 == 0){
-    //     nr1 = parseFloat(display.textContent, 10)
-    //     operator = input
-    //     operatorJustPressed = true
-    // }else if(nr1 > 0){
-    //     nr2 = parseFloat(display.textContent, 10)
-    //     sum = operate(nr1, nr2, operator)
-    //     operatorJustPressed = true
-    //     display.textContent = sum
-    //     nr1 = sum
-    //     nr2 = 0
-    //     operator = input
-    //     sumJustPressed = false
-    // }
+        nr1 = parseFloat(display.textContent, 10)
+        stage = "nr1Operator"
+    }
+    else if (stage == "nr1Operator"){
+        nr2 = parseFloat(display.textContent, 10)
+        sum = operate(nr1, nr2, operator)
+        display.textContent = sum
+        operator = input
+        stage = "nr1nr2Operator"
+    }
+
+
+    firstNrFilled = false                
 }
 
 // Operator buttons
@@ -150,7 +144,17 @@ btnMultiply.addEventListener("click", function() {
 
 let btnSum = document.querySelector("#btnSum")
 btnSum.addEventListener("click", () => {
-    // if(sumJustPressed == false){
+    if(stage == "nr1Operator"){
+        nr2 = parseFloat(display.textContent, 10)
+        sum = operate(nr1, nr2, operator)
+        display.textContent = sum
+        stage = "start"
+        nr2 = undefined      
+    }
+
+    firstNrFilled = false
+
+        
     //     nr2 = parseFloat(display.textContent)
     //     sum = operate(nr1, nr2, operator)
 
