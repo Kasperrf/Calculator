@@ -1,20 +1,22 @@
 ---------------------------------
 |   Pseudocode for calculator   |
 ---------------------------------
-Stage: start. Accept input number. if first number is not filled remove current display and display input, if 
-first number is filled add input to the current display. After choosing a number the user can either choose a 
-operator or press sum. if sum is pressed do nothing, if operator is pressed store input nr in nr1, store operator 
-input in operator variable, set firstNrFilled to false and set stage to nr1Operator 
+Stage: start. 
+    Accept input number. If first number is not filled remove current display and display input. If first 
+    input is comma (.) only accept input if there is no comma in display already. Also if first number is not filled 
+    keep 0 and add a comma. If first number is filled add input to the current display. After choosing a number the user can either choose a 
+    operator or press sum. if sum is pressed do nothing, if operator is pressed store input nr in nr1, store operator 
+    input in operator variable, set firstNrFilled to false and set stage to nr1Operator 
 
-Stage: nr1Operator. At this stage we have nr1 and operator. From here, the user can input a new number, press operator or 
-press sum. 
+Stage: nr1Operator. 
+    At this stage we have nr1 and operator. From here, the user can input a new number, press operator or 
+    press sum. 
 
-If sum is pressed, store display value to nr2, run and store sum function with nr1, nr2 and operator to sum 
-variable. Set stage to sum and firstNrFilled to false. Pressing sum again should do nothing. 
+    If sum is pressed, store display value to nr2, run and store sum function with nr1, nr2 and operator, to sum 
+    variable. Check for decimals, if more than 4 round. Set stage to start and firstNrFilled to false. 
+    Pressing sum again should do nothing. Also check for too large numbers.
 
-If operator is pressed, store display value to nr2, run and store sum function. Display sum value, update operator 
-with the new operator, set firstNrFilled to false and set stage to nr1nr2Operator. 
+    If operator is pressed, store display value to nr2, run and store sum function. heck for decimals, if more than 4 
+    round. Display sum value, update operator with the new operator, set firstNrFilled to false and copy nr1 
+    to be sum value. Also check for too large numbers.
 
-
-stage: sum. Here we have nr1, nr2 and operator. The user can press a new operator or enter a new value then press 
-new operator. If the user presses new operator, store current display to nr1. 

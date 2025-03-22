@@ -18,14 +18,7 @@ function divide(input1, input2){
     return input1 / input2
 }
 
-// Declaring empty variables
-let nr1
-let nr2
-let operator
-let sum
-let stage = "start"
-let firstNrFilled = false
-
+// Function for calculations
 function operate(nr1, nr2, operator){
     if(operator == "+"){
         return add(nr1, nr2)
@@ -34,9 +27,33 @@ function operate(nr1, nr2, operator){
     } else if(operator == "*"){
         return multiple(nr1, nr2)
     } else if(operator == "/"){
-        return divide(nr1, nr2)
+        if(nr2 == 0){
+            return 0
+        } else{
+            return divide(nr1, nr2)
+        }
+        
     }
 }
+
+// Function for counting decimals
+function count(numb) {
+    if (Number.isInteger(numb)) {
+       return 0;
+    } else {
+       return numb.toString().split('.')[1].length;
+    }
+}
+
+// Declaring empty variables
+let nr1
+let nr2
+let operator
+let sum
+let stage = "start"
+let firstNrFilled = false
+let decimals
+let inputCount = 1
 
 // Number button press function
 function nrPress(nr){
@@ -44,10 +61,13 @@ function nrPress(nr){
         display.textContent = nr
         firstNrFilled = true
     }else if(firstNrFilled == true){
-        display.textContent += nr
+        if (inputCount < 11) {
+            display.textContent += nr
+            inputCount += 1
+        }
+        
     }
 }
-
 
 // Creating buttons
 // Number buttons
@@ -103,6 +123,7 @@ clearBtn.addEventListener("click", () => {
     sum = undefined
     firstNrFilled = false
     stage = "start"
+    inputCount = 1
 })
 
 // Function for +, -, /, * operator buttons
@@ -115,13 +136,29 @@ function operatePress(input){
     else if (stage == "nr1Operator"){
         nr2 = parseFloat(display.textContent, 10)
         sum = operate(nr1, nr2, operator)
-        display.textContent = sum
-        operator = input
-        stage = "nr1nr2Operator"
+        decimals = count(sum)
+        if(decimals >= 5){  
+            sum = sum.toFixed(5)
+        }
+        if(sum > 99999999999){
+            display.textContent = "Error"
+            nr1 = undefined
+            nr2 = undefined
+            operator = undefined
+            sum = undefined
+            firstNrFilled = false
+            stage = "start"
+            inputCount = 1
+            
+        } else{
+            display.textContent = sum
+            operator = input
+            nr1 = sum
+        }
+
     }
-
-
-    firstNrFilled = false                
+    firstNrFilled = false
+    inputCount = 1                
 }
 
 // Operator buttons
@@ -142,35 +179,45 @@ btnMultiply.addEventListener("click", function() {
     operatePress("*")
 })
 
+// Creating sum button, then attaching sum function to it.
 let btnSum = document.querySelector("#btnSum")
 btnSum.addEventListener("click", () => {
     if(stage == "nr1Operator"){
         nr2 = parseFloat(display.textContent, 10)
         sum = operate(nr1, nr2, operator)
-        display.textContent = sum
-        stage = "start"
-        nr2 = undefined      
+        decimals = count(sum)
+        if(decimals >= 5){  
+            sum = sum.toFixed(5)
+        }
+
+        if(sum > 99999999999){
+            display.textContent = "Error"
+            nr1 = undefined
+            nr2 = undefined
+            operator = undefined
+            sum = undefined
+            firstNrFilled = false
+            stage = "start"
+            inputCount = 1
+        }
+        else{
+            display.textContent = sum
+            stage = "start"
+            nr2 = undefined 
+        }
+
+     
     }
-
     firstNrFilled = false
-
-        
-    //     nr2 = parseFloat(display.textContent)
-    //     sum = operate(nr1, nr2, operator)
-
-    //     if(typeof sum == "undefined"){
-    //         display.textContent = 0
-    //     }else{
-    //         display.textContent = sum
-    //     }
-
-    // }
+    inputCount = 1
 })
 
+// Creating comma button, then attaching comma function to it.
 let btnComma = document.querySelector("#btnComma")
 btnComma.addEventListener("click", () => {
     if(display.textContent.indexOf('.') == -1){
         display.textContent += "."
+        firstNrFilled = true
     }
 })
 
